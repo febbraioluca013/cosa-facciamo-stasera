@@ -9,17 +9,18 @@
 <style>
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-  margin: 0;
   min-height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
   color: white;
   background:
-    radial-gradient(circle at 20% 20%, #8b7cff 0%, transparent 35%),
-    radial-gradient(circle at 80% 80%, #ff5fa2 0%, transparent 35%),
-    linear-gradient(135deg, #17142f, #35256b 50%, #5b1d55);
+    radial-gradient(circle at 15% 20%, rgba(96,165,250,.35), transparent 30%),
+    radial-gradient(circle at 85% 80%, rgba(236,72,153,.35), transparent 30%),
+    linear-gradient(135deg, #111827, #312e81, #581c87);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,142 +30,136 @@ body {
 .container {
   width: 100%;
   max-width: 850px;
-}
-
-.card {
-  position: relative;
-  overflow: hidden;
   padding: 45px 35px;
-  border: 1px solid rgba(255,255,255,.18);
-  border-radius: 32px;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 30px;
   background: rgba(255,255,255,.10);
-  backdrop-filter: blur(25px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   box-shadow: 0 30px 80px rgba(0,0,0,.35);
   text-align: center;
 }
 
-.card::before {
-  content: "";
-  position: absolute;
-  width: 250px;
-  height: 250px;
-  background: #8c7bff;
-  filter: blur(100px);
-  opacity: .35;
-  top: -120px;
-  left: -100px;
-}
-
-.card::after {
-  content: "";
-  position: absolute;
-  width: 250px;
-  height: 250px;
-  background: #ff4f9a;
-  filter: blur(100px);
-  opacity: .25;
-  bottom: -120px;
-  right: -100px;
-}
-
-.content {
-  position: relative;
-  z-index: 2;
-}
-
 .badge {
   display: inline-block;
-  padding: 8px 15px;
+  padding: 9px 16px;
+  margin-bottom: 22px;
   border-radius: 50px;
   background: rgba(255,255,255,.12);
-  border: 1px solid rgba(255,255,255,.15);
-  font-size: 13px;
-  margin-bottom: 18px;
+  border: 1px solid rgba(255,255,255,.18);
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 h1 {
-  margin: 0;
-  font-size: clamp(38px, 7vw, 68px);
-  line-height: 1;
-  letter-spacing: -2px;
+  font-size: clamp(42px, 8vw, 76px);
+  line-height: .95;
+  margin-bottom: 20px;
+  letter-spacing: -3px;
+  text-shadow: 0 8px 30px rgba(0,0,0,.25);
 }
 
 .subtitle {
-  margin: 20px auto 30px;
-  max-width: 550px;
-  color: #ddd8f5;
-  font-size: 18px;
-  line-height: 1.6;
+  color: rgba(255,255,255,.78);
+  font-size: 19px;
+  line-height: 1.5;
+  margin-bottom: 32px;
 }
 
 .categories {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
   margin-bottom: 28px;
 }
 
 .category {
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.09);
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(255,255,255,.10);
   color: white;
-  padding: 11px 18px;
+  padding: 12px 18px;
   border-radius: 50px;
+  font-size: 15px;
+  font-weight: bold;
   cursor: pointer;
   transition: .2s;
-  font-size: 15px;
 }
 
-.category:hover,
+.category:hover {
+  transform: translateY(-2px);
+  background: rgba(255,255,255,.18);
+}
+
 .category.active {
   background: white;
-  color: #33245f;
-  transform: translateY(-2px);
+  color: #312e81;
+  box-shadow: 0 8px 25px rgba(255,255,255,.15);
 }
 
 .result {
-  min-height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 25px;
+  min-height: 220px;
+  border-radius: 25px;
+  padding: 35px 25px;
   margin-bottom: 28px;
-  border-radius: 24px;
-  background: rgba(0,0,0,.15);
-  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,.12);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: .3s;
 }
 
-.result-text {
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 1.4;
+.result-icon {
+  font-size: 55px;
+  margin-bottom: 15px;
 }
 
-.result-small {
-  display: block;
-  margin-top: 8px;
-  font-size: 14px;
-  font-weight: normal;
-  color: #cfc9eb;
+.result h2 {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+.result p {
+  color: rgba(255,255,255,.7);
+  font-size: 16px;
+  max-width: 550px;
+  line-height: 1.5;
+}
+
+.result.show {
+  animation: pop .4s ease;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(.96);
+    opacity: .5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .main-button {
-  border: 0;
-  padding: 17px 32px;
+  border: none;
+  padding: 18px 35px;
   border-radius: 50px;
-  background: linear-gradient(135deg, #ffffff, #eee9ff);
-  color: #36255f;
-  font-size: 17px;
-  font-weight: bold;
+  background: white;
+  color: #312e81;
+  font-size: 18px;
+  font-weight: 900;
   cursor: pointer;
-  box-shadow: 0 12px 30px rgba(0,0,0,.25);
+  box-shadow: 0 12px 35px rgba(0,0,0,.25);
   transition: .2s;
 }
 
 .main-button:hover {
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 16px 35px rgba(0,0,0,.35);
+  box-shadow: 0 18px 45px rgba(0,0,0,.35);
 }
 
 .main-button:active {
@@ -173,14 +168,13 @@ h1 {
 
 .counter {
   margin-top: 18px;
-  font-size: 13px;
-  color: #c7c0e5;
+  color: rgba(255,255,255,.55);
+  font-size: 14px;
 }
 
 .footer {
-  margin-top: 25px;
-  text-align: center;
-  color: rgba(255,255,255,.55);
+  margin-top: 30px;
+  color: rgba(255,255,255,.45);
   font-size: 13px;
 }
 
@@ -189,22 +183,21 @@ h1 {
     padding: 15px;
   }
 
-  .card {
-    padding: 35px 20px;
-    border-radius: 25px;
+  .container {
+    padding: 30px 18px;
+    border-radius: 24px;
+  }
+
+  h1 {
+    letter-spacing: -2px;
   }
 
   .subtitle {
     font-size: 16px;
   }
 
-  .result-text {
-    font-size: 20px;
-  }
-
-  .category {
-    font-size: 14px;
-    padding: 10px 14px;
+  .result {
+    min-height: 200px;
   }
 }
 </style>
@@ -214,40 +207,38 @@ h1 {
 
 <div class="container">
 
-  <div class="card">
-    <div class="content">
-[3/9, 15:39] Chat: <div class="badge">🎲 IL GENERATORE DI SERATE</div>
+  <div class="badge">🎲 IL GENERATORE DI SERATE</div>
 
-      <h1>✨ Cosa facciamo<br>stasera?</h1>
+  <h1>✨ Cosa facciamo<br>stasera?</h1>
 
-      <p class="subtitle">
-        Non avete idea di cosa fare?<br>
-        Tranquilli. Ci pensa lui. 😎
-      </p>
+  <p class="subtitle">
+    Non avete idea di cosa fare?<br>
+    Tranquilli. Ci pensa lui. 😎
+  </p>
 
-      <div class="categories">
-        <button class="category active" onclick="setCategory('tutte', this)">🎲 Tutte</button>
-        <button class="category" onclick="setCategory('casa', this)">🏠 Casa</button>
-        <button class="category" onclick="setCategory('fuori', this)">🌃 Fuori</button>
-        <button class="category" onclick="setCategory('amici', this)">👥 Amici</button>
-        <button class="category" onclick="setCategory('relax', this)">🧘 Relax</button>
-      </div>
+  <div class="categories">
+[3/9, 15:54] Chat: <button class="category active" data-category="tutte">🎲 Tutte</button>
+    <button class="category" data-category="casa">🏠 Casa</button>
+    <button class="category" data-category="fuori">🌃 Fuori</button>
+    <button class="category" data-category="amici">👥 Amici</button>
+    <button class="category" data-category="relax">🧘 Relax</button>
+  </div>
 
-      <div class="result">
-        <div class="result-text" id="result">
-          Premi il pulsante e scopri cosa fare!
-        </div>
-      </div>
+  <div class="result" id="result">
+    <div class="result-icon">🎲</div>
+    <h2>Premi il pulsante e scopri cosa fare!</h2>
+    <p>
+      Una serata senza idee? Nessun problema.
+      Lascia scegliere al caso.
+    </p>
+  </div>
 
-      <button class="main-button" onclick="generateIdea()">
-        🎲 TROVA QUALCOSA
-      </button>
+  <button class="main-button" id="generate">
+    🎲 TROVA QUALCOSA
+  </button>
 
-      <div class="counter">
-        Idee generate: <span id="counter">0</span>
-      </div>
-
-    </div>
+  <div class="counter">
+    Idee generate: <span id="counter">0</span>
   </div>
 
   <div class="footer">
@@ -257,95 +248,98 @@ h1 {
 </div>
 
 <script>
-
 const ideas = {
-
   casa: [
-    ["🎬 Serata cinema", "Scegliete un film a caso e preparate qualcosa da mangiare."],
-    ["🍕 Pizza + serie TV", "Ordinate una pizza e iniziate una serie nuova."],
-    ["🎮 Torneo videogiochi", "Sfida tutti gli amici e scopri chi è il vero campione."],
-    ["🍿 Film trash", "Scegliete il film peggiore che riuscite a trovare."],
-    ["🎤 Karaoke improvvisato", "YouTube, microfono immaginario e zero vergogna."],
-    ["🍳 MasterChef casalingo", "Inventate un piatto usando solo quello che avete in casa."]
+    ["🎬", "Maratona di film", "Scegliete una saga o un film che nessuno ha mai visto."],
+    ["🍕", "Pizza e film", "Ordinate o preparate una pizza e scegliete un film a caso."],
+    ["🎮", "Torneo di videogiochi", "Organizzate una sfida e vediamo chi è davvero il campione."],
+    ["🍿", "Serata cinema", "Luci spente, snack e film scelto con gli occhi chiusi."],
+    ["🎲", "Giochi da tavolo", "Tirate fuori un gioco e preparatevi a litigare per vincere."],
+    ["🍳", "Cucinate qualcosa", "Provate una ricetta nuova con quello che avete in casa."],
+    ["🎤", "Karaoke", "Mettete le vostre canzoni preferite e cantate senza vergogna."],
+    ["😂", "Serata meme", "Mandatevi i meme più assurdi che trovate e votate il migliore."]
   ],
 
   fuori: [
-    ["🌃 Passeggiata notturna", "Mettete le cuffie e fate un giro senza una meta precisa."],
-    ["🍦 Gelato di sera", "Uscite e prendete il vostro gusto preferito."],
-    ["☕ Bar casuale", "Entrate in un locale dove non siete mai stati."],
-    ["🌆 Giro in macchina", "Musica alta, finestrini aperti e nessuna destinazione."],
-    ["📸 Foto challenge", "Uscite e provate a fare 10 foto completamente casuali."],
-    ["🌙 Guardare le stelle", "Trovate un posto tranquillo e godetevi il cielo."]
+    ["🌃", "Passeggiata notturna", "Uscite senza una meta precisa e scoprite un posto nuovo."],
+    ["🍔", "Andate a mangiare", "Scegliete un posto nuovo e provate qualcosa che non avete mai ordinato."],
+    ["🍦", "Gelato di sera", "Un classico che non delude mai."],
+    ["📸", "Foto challenge", "Uscite e provate a fare 10 foto creative in giro."],
+    ["🚗", "Giro in macchina", "Musica alta, finestrini aperti e destinazione casuale."],
+    ["🌆", "Esplorate la città", "Cercate un posto della vostra zona dove non siete mai stati."],
+    ["☕", "Bar serale", "Trovate un locale tranquillo e fate due chiacchiere."]
   ],
 
   amici: [
-    ["😂 Serata giochi", "UNO, carte, giochi da tavolo o qualsiasi cosa troviate."],
-    ["🎲 Obbligo o verità", "Una serata caotica con domande e sfide."],
-    ["🏆 Mini torneo", "Create una competizione con più giochi diversi."],
-    ["🤣 Sfida TikTok", "Provate a ricreare i video più assurdi che trovate."],
-    ["🍔 Cena tutti insieme", "Ognuno porta qualcosa e si mangia insieme."],
-    ["🎤 Karaoke di gruppo", "Scegliete le canzoni più imbarazzanti possibili."]
+    ["🎮", "Sfida tra amici", "Create un torneo e fate vincere il migliore."],
+    ["🎤", "Karaoke di gruppo", "Scegliete le canzoni peggiori e cantatele tutti insieme."],
+    ["😂", "Serata meme", "Chi riesce a far ridere tutti per primo vince."],
+    ["🍕", "Pizza tutti insieme", "Pizza, musica e discussioni inutili fino a tardi."],
+    ["🎲", "Gioco a sorpresa", "Ogni persona propone un gioco e si sceglie casualmente."],
+    ["🏆", "Olimpiadi degli amici", "Inventate prove completamente stupide e assegnate punti."]
   ],
 
   relax: [
-    ["🧘 Serata relax", "Luci basse, musica tranquilla e zero stress."],
-    ["🎧 Playlist chill", "Create una playlist tutti insieme."],
-    ["🛋️ Divano + film", "Coperta, snack e un bel film."],
-    ["📖 Leggere qualcosa", "Prendete un libro e staccate completamente."],
-    ["🌙 Digital detox", "Mettete via il telefono per un'ora."],
-    ["🫖 Serata tisana", "Qualcosa di caldo, musica e totale tranquillità."]
+    ["🧘", "Serata relax", "Musica tranquilla, luci basse e zero stress."],
+    ["🎧", "Musica e chill", "Preparate una playlist e ascoltatela senza fare altro."],
+    ["📖", "Leggete qualcosa", "Un libro, un fumetto o qualsiasi cosa vi incuriosisca."],
+    ["🌙", "Guardate le stelle", "Se il cielo è sereno, uscite e rilassatevi guardando le stelle."],
+    ["🛋️", "Modalità divano", "Coperta, snack e assolutamente niente programmi."],
+    ["🚿", "Reset totale", "Doccia, vestiti comodi, musica e serata completamente tranquilla."]
   ]
-
 };
 
-let category = "tutte";
+let currentCategory = "tutte";
 let counter = 0;
 
-function setCategory(selected, button) {
+const buttons = document.querySelectorAll(".category");
+const generateButton = document.getElementById("generate");
+const result = document.getElementById("result");
+const counterElement = document.getElementById("counter");
 
-  category = selected;
-
-  document.querySelectorAll(".category").forEach(btn => {
-    btn.classList.remove("active");
+buttons.forEach(button => {
+  button.addEventListener("click", () => {
+    buttons.forEach(b => b.classList.remove("active"));
+    button.classList.add("active");
+    currentCategory = button.dataset.category;
   });
+});
+[3/9, 15:54] Chat: function getIdeas() {
+  if (currentCategory === "tutte") {
+    return Object.values(ideas).flat();
+  }
 
-  button.classList.add("active");
-
-  document.getElementById("result").innerHTML =
-    "Categoria selezionata! 😎<span class='result-small'>Ora premi il pulsante.</span>";
+  return ideas[currentCategory];
 }
 
 function generateIdea() {
+  const list = getIdeas();
 
-  let pool = [];
-
-  if (category === "tutte") {
-
-    Object.values(ideas).forEach(list => {
-      pool = pool.concat(list);
-    });
-
-  } else {
-
-    pool = ideas[category];
-
+  if (!list || list.length === 0) {
+    return;
   }
 
-  const random = pool[Math.floor(Math.random() * pool.length)];
+  const randomIdea = list[Math.floor(Math.random() * list.length)];
 
   counter++;
- document.getElementById("counter").textContent = counter;
+  counterElement.textContent = counter;
 
-  document.getElementById("result").innerHTML =
-    random[0] +
-    "<span class='result-small'>" +
-    random[1] +
-    "</span>";
+  result.classList.remove("show");
 
+  void result.offsetWidth;
+
+  result.innerHTML = `
+    <div class="result-icon">${randomIdea[0]}</div>
+    <h2>${randomIdea[1]}</h2>
+    <p>${randomIdea[2]}</p>
+  `;
+
+  result.classList.add("show");
 }
 
+generateButton.addEventListener("click", generateIdea);
 </script>
 
 </body>
 </html>
-
+```
