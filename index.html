@@ -304,7 +304,7 @@ buttons.forEach(button => {
     currentCategory = button.dataset.category;
   });
 });
-[3/9, 15:54] Chat: function getIdeas() {
+ function getIdeas() {
   if (currentCategory === "tutte") {
     return Object.values(ideas).flat();
   }
@@ -342,4 +342,3 @@ generateButton.addEventListener("click", generateIdea);
 
 </body>
 </html>
-```
