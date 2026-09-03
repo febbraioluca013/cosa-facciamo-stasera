@@ -1,112 +1,277 @@
 
-```html
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosa facciamo stasera?</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>✨ Cosa facciamo stasera?</title>
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            text-align: center;
-        }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
 
-        .box {
-            width: 90%;
-            max-width: 600px;
-            padding: 45px 30px;
-            border-radius: 25px;
-            background: rgba(255,255,255,0.15);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
-        }
+    .container {
+      width: 100%;
+      max-width: 650px;
+      text-align: center;
+    }
 
-        h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
-        }
+    .card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 30px;
+      padding: 45px 30px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+    }
 
-        p {
-            font-size: 18px;
-            opacity: 0.9;
-        }
+    h1 {
+      font-size: 42px;
+      margin: 0 0 10px;
+    }
 
-        button {
-            margin-top: 25px;
-            padding: 18px 35px;
-            border: none;
-            border-radius: 50px;
-            background: white;
-            color: #6c4ab6;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+    .subtitle {
+      font-size: 18px;
+      opacity: 0.9;
+      margin-bottom: 30px;
+    }
 
-        button:hover {
-            transform: scale(1.05);
-        }
+    .categories {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
 
-        #risultato {
-            margin-top: 30px;
-            font-size: 25px;
-            font-weight: bold;
-            min-height: 35px;
-        }
-    </style>
+    .category {
+      border: none;
+      padding: 10px 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      cursor: pointer;
+      font-size: 15px;
+      transition: 0.2s;
+    }
+
+    .category:hover,
+    .category.active {
+      background: white;
+      color: #684bb0;
+      transform: scale(1.05);
+    }
+
+    #result {
+      min-height: 130px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 25px;
+      font-weight: bold;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 20px;
+      background: rgba(0,0,0,0.12);
+      transition: 0.15s;
+    }
+
+    .main-button {
+      border: none;
+      background: white;
+      color: #684bb0;
+      padding: 17px 35px;
+      border-radius: 30px;
+      font-size: 19px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      transition: 0.2s;
+    }
+
+    .main-button:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.25);
+    }
+
+    .counter {
+      margin-top: 20px;
+      font-size: 14px;
+      opacity: 0.75;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 13px;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 32px;
+      }
+
+      .card {
+        padding: 35px 20px;
+      }
+
+      #result {
+        font-size: 21px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <div class="box">
-        <h1>✨ Cosa facciamo stasera?</h1>
+  <div class="container">
 
-        <p>Non sapete cosa fare?</p>
-        <p>Ci penso io 😎</p>
+    <div class="card">
 
-        <button onclick="generaIdea()">
-            🎲 TROVA QUALCOSA
-        </button>
+      <h1>✨ Cosa facciamo stasera?</h1>
 
-        <div id="risultato"></div>
+      <div class="subtitle">
+        Non sapete cosa fare? Ci penso io 😎
+      </div>
+
+      <div class="categories">
+        <button class="category active" onclick="setCategory('tutte', this)">🎲 Tutte</button>
+        <button class="category" onclick="setCategory('casa', this)">🏠 Casa</button>
+        <button class="category" onclick="setCategory('fuori', this)">🌃 Fuori</button>
+        <button class="category" onclick="setCategory('amici', this)">👥 Amici</button>
+        <button class="category" onclick="setCategory('relax', this)">🧘 Relax</button>
+      </div>
+
+      <div id="result">
+        🎲 Premi il pulsante e scopri cosa fare!
+      </div>
+
+      <button class="main-button" onclick="generateIdea()">
+        🎲 TROVA QUALCOSA
+      </button>
+
+      <div class="counter">
+        Idee generate: <span id="counter">0</span>
+      </div>
+
     </div>
 
-    <script>
-        const idee = [
-            "🎮 Fate una partita insieme",
-            "🍿 Guardate un film",
-            "🍕 Ordinate qualcosa di buono",
-            "🎵 Ascoltate la vostra playlist",
-            "😂 Guardate video stupidi e ridete",
-            "🚶 Fate una passeggiata",
-            "🧑‍🍳 Cucinate qualcosa insieme",
-            "🎲 Fate un gioco di società",
-            "💬 Fatevi domande a caso",
-            "❤️ Organizzate un appuntamento",
-            "🎨 Disegnate qualcosa",
-            "📸 Fate delle foto divertenti"
-        ];
+    <footer>
+      Fatto con ❤️ per le serate senza idee
+    </footer>
 
-        function generaIdea() {
-            const casuale = Math.floor(Math.random() * idee.length);
-            document.getElementById("risultato").textContent = idee[casuale];
-        }
-    </script>
+  </div>
+  <script>
+      const ideas = {
+
+      casa: [
+        "🎬 Guardate un film scelto a caso",
+        "🍕 Ordinate qualcosa di buonissimo",
+        "🎮 Fate una sfida a un videogioco",
+        "🍿 Serata film + snack",
+        "🎲 Fate un torneo di giochi da tavolo",
+        "👨‍🍳 Provate a cucinare qualcosa di nuovo",
+        "🎵 Mettete la musica e fate una mini festa",
+        "😂 Guardate vecchi video e ridete insieme"
+      ],
+
+      fuori: [
+        "🌃 Fate una passeggiata senza una meta precisa",
+        "🍦 Andate a prendere un gelato",
+        "🍔 Provate un posto dove non siete mai stati",
+        "🌅 Andate a vedere il tramonto",
+        "📸 Fate un giro e scattate foto stupide",
+        "🚗 Fate un giro in macchina ascoltando musica",
+        "☕ Andate a bere qualcosa insieme"
+      ],
+
+      amici: [
+        "🎮 Organizzate un torneo tra amici",
+        "😂 Fate una serata di giochi e sfide",
+        "🍕 Pizza tutti insieme",
+        "🎤 Fate una serata karaoke",
+        "🎲 Giocate a obbligo o verità",
+        "🏆 Inventate una sfida assurda",
+        "🎬 Serata film tutti insieme"
+      ],
+
+      relax: [
+        "🛋️ Divano, coperta e serie TV",
+        "🎧 Ascoltate musica al buio",
+        "📖 Leggete qualcosa che vi piace",
+        "🧘 Fate una serata completamente tranquilla",
+        "☕ Bevete qualcosa di caldo e parlate",
+        "🌙 Spegnete tutto e guardate le stelle",
+        "😴 Serata senza programmi: relax totale"
+      ]
+
+    };
+
+    let category = "tutte";
+    let count = 0;
+
+    function setCategory(selected, button) {
+
+      category = selected;
+
+      document.querySelectorAll(".category").forEach(btn => {
+        btn.classList.remove("active");
+      });
+
+      button.classList.add("active");
+    }
+
+    function generateIdea() {
+
+      let availableIdeas = [];
+
+      if (category === "tutte") {
+
+        Object.values(ideas).forEach(list => {
+          availableIdeas = availableIdeas.concat(list);
+        });
+
+      } else {
+
+        availableIdeas = ideas[category];
+
+      }
+
+      const randomIndex = Math.floor(Math.random() * availableIdeas.length);
+
+      const result = document.getElementById("result");
+
+      result.style.transform = "scale(0.9)";
+      result.style.opacity = "0";
+
+      setTimeout(() => {
+
+        result.textContent = availableIdeas[randomIndex];
+
+        result.style.transform = "scale(1)";
+        result.style.opacity = "1";
+
+      }, 150);
+
+      count++;
+
+      document.getElementById("counter").textContent = count;
+    }
+
+  </script>
 
 </body>
 </html>
-```
